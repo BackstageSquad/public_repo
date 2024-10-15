@@ -1,0 +1,61 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: notification-api
+  description: Send notifications (emails, SMS)
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:developer-team
+  system: banking-system
+  definition: |
+    openapi: "3.0.0"
+    info:
+      version: 1.0.0
+      title: Notification API
+      license:
+        name: MIT
+    servers:
+      - url: https://api.example-org.com/notification
+    paths:
+      /sendEmail:
+        post:
+          summary: Send an email notification
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    to:
+                      type: string
+                      description: Recipient's email address
+                    subject:
+                      type: string
+                      description: Email subject
+                    body:
+                      type: string
+                      description: Email body
+          responses:
+            '200':
+              description: Email sent successfully
+      /sendSMS:
+        post:
+          summary: Send an SMS notification
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    to:
+                      type: string
+                      description: Recipient's phone number
+                    message:
+                      type: string
+                      description: SMS message
+          responses:
+            '200':
+              description: SMS sent successfully
